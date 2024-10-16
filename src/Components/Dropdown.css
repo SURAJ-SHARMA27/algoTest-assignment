@@ -1,0 +1,79 @@
+/* Container for the dropdown */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+/* Container for the dropdown */
+.dropdown-container {
+  width: 21rem; /* Set the container width */
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+/* Header of the dropdown showing the selected value */
+.dropdown-header {
+  background-color: #FAFAFA; /* Set background color to FAFAFA */
+  padding: 10px; /* Adjust padding */
+  height: 44px; /* Set height of the dropdown header */
+  border: 1px solid #E5E7EB;
+  display: flex;
+  align-items: center; /* Center icon vertically */
+  cursor: pointer;
+  position: relative;
+}
+
+/* Column layout for title and value */
+.dropdown-title {
+  font-family: 'Inter', sans-serif; /* Use Inter font */
+  font-size: 12px; /* Font size for the title */
+  color: #3A3A3A; /* Color for the title */
+  font-weight: normal; /* Normal weight for title */
+  margin: 0; /* Remove default margin */
+}
+
+.dropdown-value {
+  font-family: 'Inter', sans-serif; /* Use Inter font */
+  font-size: 12px; /* Font size for the value */
+  color: #3A3A3A; /* Color for the value */
+  font-weight: 600; /* Semibold weight for the value */
+  margin: 0; /* No margin needed for alignment */
+}
+
+/* The ExpandMore icon for toggling dropdown */
+.dropdown-arrow {
+  position: absolute;
+  top: 50%; /* Center icon vertically */
+  right: 10px; /* Adjust spacing as needed */
+  transform: translateY(-50%); /* Center the icon */
+  color: rgba(0, 0, 0, 0.5); /* Light black color */
+}
+
+/* The dropdown list that appears on click */
+.dropdown-list-first {
+  background-color: white; /* Set background color to white */
+  border: 1px solid #E5E7EB;
+  font-size: 12px;
+  color: #2A2A2A;
+  position: absolute;
+  width: 100%; /* Match the width of the dropdown header */
+  top: 54px; /* Adjust based on header height */
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 200px; /* Set a maximum height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Individual dropdown items */
+.dropdown-item-first {
+  padding: 10px;
+  display: flex;
+  font-size: 12px;
+  height: 23px;
+  color: #2A2A2A;
+  justify-content: space-between;
+  align-items: center; /* Center items vertically */
+  cursor: pointer;
+}
+
+/* Hover effect for dropdown items */
+.dropdown-item-first:hover {
+  background-color: #DAECF9; /* Highlight on hover */
+}
