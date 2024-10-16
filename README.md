@@ -1,6 +1,11 @@
 # Option Data Fetching and Update Logic
 
 This document outlines the logic and flow of fetching option data and updating it in real-time based on incoming WebSocket data. The process involves interacting with two APIs and using a WebSocket to ensure the UI is always up-to-date.
+For better understanding I also attached the flow diagram how the approach is working:
+
+## Flowchart
+![Flowchart](image.jpeg)
+
 
 ## Table of Contents
 - [Overview](#overview)
