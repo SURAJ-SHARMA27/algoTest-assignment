@@ -11,8 +11,7 @@ For better understanding I also attached the flow diagram how the approach is wo
 - [Overview](#overview)
 - [Data Flow Steps](#data-flow-steps)
 - [Data Structures](#data-structures)
-- [How to Use](#how-to-use)
-
+ 
 ## Overview
 
 The application fetches data related to financial options for various indices (e.g., Nifty, BankNifty, Sensex) and updates it dynamically. It does this through two primary APIs and handles real-time updates via WebSocket.
