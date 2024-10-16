@@ -10,8 +10,7 @@ For better understanding I also attached the flow diagram how the approach is wo
 ## Table of Contents
 - [Overview](#overview)
 - [Data Flow Steps](#data-flow-steps)
-- [Data Structures](#data-structures)
- 
+  
 ## Overview
 
 The application fetches data related to financial options for various indices (e.g., Nifty, BankNifty, Sensex) and updates it dynamically. It does this through two primary APIs and handles real-time updates via WebSocket.
@@ -44,49 +43,6 @@ The application fetches data related to financial options for various indices (e
    - For each update, checks the `contractMap` using the token.
    - Updates the respective row's `call_close` or `put_close` based on the `option_type` (CE for call, PE for put).
 
-7. **Update UI**
-   - Refreshes the displayed rows with the latest data after processing the WebSocket updates.
 
-## Data Structures
-
-- **ContractDetail**
-  ```typescript
-  interface ContractDetail {
-      exchange: string;
-      expiry: string;
-      instrument_type: string;
-      is_tradable: boolean;
-      lot_size: number;
-      max_qty_in_order: number;
-      option_type: string; // CE or PE
-      strike: number;
-      symbol: string;
-      tick_size: number;
-      token: string;
-      underlying: string;
-  }
-  ```
-
-- **CloseValues**
-  ```typescript
-  interface CloseValues {
-      call_close: number | "";
-      put_close: number | "";
-      call_delta: number | "";
-      put_delta: number | "";
-  }
-  ```
-
-- **RowData**
-  ```typescript
-  interface Option {
-      delta: number;
-      call_close: number | "";
-      put_close: number | "";
-      strike: number;
-      call_delta: number | "";
-      put_delta: number | "";
-  }
-  ```
 
  
