@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import './Dropdown.css'; // Import the CSS file for styles
+import './Dropdown.css'; 
 interface DropdownProps {
   firstDropdown:any;
   firstSelectedOption:any;
@@ -11,13 +11,12 @@ const Dropdown: React.FC<DropdownProps> = ({ firstDropdown,firstSelectedOption,s
  
   const options =  firstDropdown;
 
-  const dropdownRef = useRef<HTMLDivElement | null>(null); // Create a ref for the dropdown
+  const dropdownRef = useRef<HTMLDivElement | null>(null); 
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false); // Close the dropdown
+        setIsOpen(false);  
       }
     };
 
@@ -29,7 +28,7 @@ const Dropdown: React.FC<DropdownProps> = ({ firstDropdown,firstSelectedOption,s
 
   const handleOptionClick = (option: { name: string; value: string }) => {
     setFirstSelectedOption(option);
-    setIsOpen(false); // Close dropdown on option select
+    setIsOpen(false); 
   };
 
   return (

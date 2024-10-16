@@ -1,15 +1,14 @@
-import React from 'react';
-
+ 
 const CustomIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="18" // Set your desired width
-      height="18" // Set your desired height
+      width="18"  
+      height="18"  
       viewBox="0 0 24 24"
-      fill="none" // Set fill color if needed
-      stroke="#CA8144" // Use current color for stroke
-      strokeWidth="2" // Set stroke width
+      fill="none"  
+      stroke="#CA8144"  
+      strokeWidth="2"  
       strokeLinecap="round"
       strokeLinejoin="round"
     >

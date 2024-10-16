@@ -1,50 +1,88 @@
-# React + TypeScript + Vite
+# Option Data Fetching and Update Logic
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This document outlines the logic and flow of fetching option data and updating it in real-time based on incoming WebSocket data. The process involves interacting with two APIs and using a WebSocket to ensure the UI is always up-to-date.
 
-Currently, two official plugins are available:
+## Table of Contents
+- [Overview](#overview)
+- [Data Flow Steps](#data-flow-steps)
+- [Data Structures](#data-structures)
+- [How to Use](#how-to-use)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Overview
 
-## Expanding the ESLint configuration
+The application fetches data related to financial options for various indices (e.g., Nifty, BankNifty, Sensex) and updates it dynamically. It does this through two primary APIs and handles real-time updates via WebSocket.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Data Flow Steps
 
-- Configure the top-level `parserOptions` property like this:
+1. **Fetch Contract API (`/api/contracts`)**
+   - Fetches a list of available options and their details.
+   - Sets the first available option (e.g., BankNifty) as the default selection.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+2. **Set Dropdowns and Date Options**
+   - Extracts and sorts available date options from the selected option's details.
+   - Sets the first available date for further processing.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+3. **Fetch Contract Details for the Selected Date**
+   - Extracts contract details for the selected date.
+   - Creates a `contractMap` using the token as the key for quick access.
+   - Obtains unique strikes from the contract details for later use.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+4. **Fetch Option Chain with LTP API (`/api/option-chain-with-ltp`)**
+   - Fetches option chain data for the selected option (e.g., BankNifty) and date.
+   - Creates a `strikeMap` where each strike price maps to its corresponding call and put values (e.g., `call_close`, `put_close`, etc.).
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+5. **Populate `RowData` Based on Unique Strikes**
+   - Iterates through each unique strike.
+   - Populates `RowData` using values from the `strikeMap`.
+
+6. **Update Data from WebSocket (`ltpData`)**
+   - Listens for incoming WebSocket data updates.
+   - For each update, checks the `contractMap` using the token.
+   - Updates the respective row's `call_close` or `put_close` based on the `option_type` (CE for call, PE for put).
+
+7. **Update UI**
+   - Refreshes the displayed rows with the latest data after processing the WebSocket updates.
+
+## Data Structures
+
+- **ContractDetail**
+  ```typescript
+  interface ContractDetail {
+      exchange: string;
+      expiry: string;
+      instrument_type: string;
+      is_tradable: boolean;
+      lot_size: number;
+      max_qty_in_order: number;
+      option_type: string; // CE or PE
+      strike: number;
+      symbol: string;
+      tick_size: number;
+      token: string;
+      underlying: string;
+  }
+  ```
+
+- **CloseValues**
+  ```typescript
+  interface CloseValues {
+      call_close: number | "";
+      put_close: number | "";
+      call_delta: number | "";
+      put_delta: number | "";
+  }
+  ```
+
+- **RowData**
+  ```typescript
+  interface Option {
+      delta: number;
+      call_close: number | "";
+      put_close: number | "";
+      strike: number;
+      call_delta: number | "";
+      put_delta: number | "";
+  }
+  ```
+
+ 

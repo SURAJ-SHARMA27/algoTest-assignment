@@ -14,8 +14,8 @@ body {
 
 .switch-wrapper {
   display: flex;
-  align-items: center; /* Align items vertically in the center */
-  gap: 8px; /* Optional: Add some spacing between the switch and the text */
+  align-items: center; 
+  gap: 8px;  
 }
 
 .switch {
@@ -67,8 +67,7 @@ input:focus + .slider {
 input:checked + .slider:before {
   transform: translate(13px, -50%);
 }
-/* app.css */
-
+ 
 .responsive-container {
   width: 40%;
   float: left;
@@ -77,6 +76,6 @@ input:checked + .slider:before {
 @media (max-width: 600px) {
   .responsive-container {
       width: 100%;
-      float: none; /* To clear float on small screens */
+      float: none;  
   }
 }
