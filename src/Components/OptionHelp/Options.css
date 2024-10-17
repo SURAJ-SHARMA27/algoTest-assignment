@@ -1,0 +1,71 @@
+.options-container {
+    display: flex;
+    justify-content: space-between; /* Space between left and right divs */
+    align-items: center; /* Center items vertically */
+    height: 34px; /* Height of the parent container */
+}
+
+.options-left {
+    display: flex;
+    justify-content: space-around; /* Space options evenly */
+    align-items: center; /* Center items vertically */
+    margin-left: 10px;
+    width: 400px; /* Width of the left container */
+    height: 100%; /* Full height */
+    border: 1px solid #e5e7eb; /* Border around the left div */
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding and border in height/width */
+}
+
+.option {
+    font-size: 14px; /* Font size */
+    font-family: 'Inter', sans-serif; /* Font family */
+    color: #808080; /* Default text color */
+    display: flex; /* Enable flexbox for vertical centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    height: 100%; /* Full height for centered alignment */
+    flex: 1; /* Allow each option to take equal width */
+}
+
+.help-center {
+    height: 30px; /* Height of the right div */
+    display: flex; /* Enable flexbox for vertical centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    font-size: 14px; /* Font size */
+    font-family: 'Inter', sans-serif; /* Font family */
+    color: #080808; /* Text color */
+    cursor: pointer; /* Indicate clickable item */
+}
+
+.question-card {
+    display: flex;
+    align-items: center;
+      width: 118px;
+      margin-right: 5px;
+    height: 34px;
+    border:1px solid #f3f3f3;
+    border-radius: 9999px;
+    color:white;    
+    padding: 0 3px;
+  }
+  
+  .question-icon {
+    width: 20px;
+    height: 20px;
+    background-color: #0b619b    ; /* Blue color for the circle */
+    color: white;
+    font-size: 12px;
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-right: 9px; /* Space between the circle and Credits info */
+  }
+  
+  .question-info {
+    font-size: 12px;
+    color: #3a3a3a;
+  }
+  

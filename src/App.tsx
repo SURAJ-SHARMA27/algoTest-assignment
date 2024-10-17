@@ -5,6 +5,12 @@ import Navigation from './Components/Navigation';
 import TableContainer from './Components/TableUtils/TableContainer';
 import { createContractMap, getUniqueStrikes, populateRowData, populateStrikeMap } from './Components/Utils/utils';
 import { ContractDetail, Option, OptionChainData } from './Components/Utils/interfaces';
+import Navbar from './Components/Navbar/Navbar';
+import StrategyHeader from './Components/StrategyHeader/StrategyHeader';
+import TwoColumnLayout from './Components/TwoCols/TwoColumns';
+import ExpiryStatus from './Components/ExpiryStatus/ExpiryStatus';
+import OptionsAndHelp from './Components/OptionHelp/OptionsHelp';
+import CenteredText from './Components/CenteredText/CenteredText';
 
 
 
@@ -246,8 +252,11 @@ console.log()
  
 
   return (
+<>
+   {!isSmallScreen &&<Navbar/>}
 <div className='responsive-container' >
-<h2 style={{textAlign:"center"}}>Option Chain</h2>
+  <StrategyHeader/>
+  <TwoColumnLayout/>
      
 <Header 
       firstDropdown={firstDropdown} 
@@ -271,6 +280,13 @@ console.log()
 
 
     </div>
+
+ {!isSmallScreen && (   <div>
+      <ExpiryStatus/>
+      <OptionsAndHelp/>
+      <CenteredText/>
+    </div>)}
+    </>
   );
 };
 

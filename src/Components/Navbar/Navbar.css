@@ -1,0 +1,112 @@
+/* General Navbar Styles */
+.navbar {
+    background-color: #3A3A3A; /* Background color */
+    height: 48px; /* Navbar height */
+    display: flex;
+    justify-content: space-between; /* Space out items */
+    align-items: center; /* Align all items vertically */
+    padding: 0 20px; /* Padding for left and right */
+  }
+  
+  /* Left Section (Logo) */
+  .navbar-left {
+    display: flex;
+    align-items: center; /* Align items vertically */
+  }
+  
+  .navbar-left .logo-img {
+    width: 30px; /* Image width */
+    height: 30px; /* Image height */
+    margin-right: 10px; /* Space between image and text */
+  }
+  
+  .navbar-left .logo {
+    font-family: 'Inter', sans-serif; /* Font family */
+    font-size: 16px; /* Font size */
+    color: #FFFFFF; /* Text color */
+   }
+  
+  /* Center Section (Menu Items) */
+  .navbar-center {
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+  }
+  
+  .navbar-center .nav-item {
+    font-family: 'Inter', sans-serif; /* Font family */
+    font-size: 14px; /* Font size */
+    color: #FFFFFF; /* Text color */
+    margin: 0 5px; /* Space between items */
+    cursor: pointer; /* Pointer cursor on hover */
+    padding: 10px;
+    /* padding-bottom: 5px; */
+}
+  
+  /* Right Section (Menu Items) */
+  .navbar-right {
+    display: flex;
+    align-items: center; /* Align items vertically */
+  }
+  
+  .navbar-right .nav-item-right {
+    font-family: 'Inter', sans-serif; /* Font family */
+    font-size: 14px; /* Font size */
+    color: #FFFFFF; /* Text color */
+    margin-left: 20px; /* Space between items */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  /* Optional: Hover effects for links */
+  
+  .nav-item:hover, .nav-item-right:hover {
+   background-color: #2a2a2a; 
+
+}
+  
+.nav-item u {
+    text-decoration: underline;
+    text-underline-offset: 4px; /* Adjust this value for more or less space */
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .nav-item-right {
+    margin-right: 20px;
+    font-size: 14px;
+    color: #FFFFFF; /* Adjust color based on your design */
+  }
+  
+  .profile-card {
+    display: flex;
+    align-items: center;
+     width: 100px;
+    height: 34px;
+    border:1px solid #555555;
+    background-color: #444444    ; /* Adjust background color as needed */
+    border-radius: 9999px;
+    color:white;    
+    padding: 0 3px;
+  }
+  
+  .profile-icon {
+    width: 28px;
+    height: 28px;
+    background-color: #0782da; /* Blue color for the circle */
+    color: white;
+    font-size: 12px;
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-right: 9px; /* Space between the circle and Credits info */
+  }
+  
+  .credits-info {
+    font-size: 14px;
+    color: white;
+  }
+  

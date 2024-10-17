@@ -1,0 +1,24 @@
+.center-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    height: calc(100vh - 130px); /* Adjust the height based on your fixed content above */
+    text-align: center; /* Center text within the div */
+}
+
+.analysis-title {
+    font-size: 16px; /* Font size */
+    font-family: 'Inter', sans-serif; /* Font family */
+    color: #2A2A2A; /* Text color */
+    font-weight: bold; /* Bold font */
+    margin-bottom: 8px; /* Space between title and description */
+}
+
+.analysis-description {
+    font-size: 14px; /* Font size */
+    margin-top: 5px;
+    font-family: 'Inter', sans-serif; /* Font family */
+    color: #2A2A2A; /* Text color */
+    font-weight: normal; /* Normal font weight */
+}

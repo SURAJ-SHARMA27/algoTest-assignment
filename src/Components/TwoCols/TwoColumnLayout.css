@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    width: 100%; /* Full width of the container */
+    height: 36px; /* Set the height */
+    padding: 0;
+    margin: 0;
+  }
+  
+  .left-div, .right-div {
+    width: 50%; /* Each div takes half the width */
+    display: flex;
+    justify-content: center; /* Horizontal center */
+    align-items: center; /* Vertical center */
+    padding: 0;
+    margin: 0;
+  }
+  
+  .left-div {
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold; /* Bold text */
+    border-bottom: 2px solid #399be1;
+  }
+  
+  .right-div {
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: normal; /* Regular (unbold) text */
+  }
+  

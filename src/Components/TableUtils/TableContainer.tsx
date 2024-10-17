@@ -20,7 +20,7 @@ interface TableContainerProps {
 
 const TableContainer: React.FC<TableContainerProps> = ({ loading, isSmallScreen, rows,currentDate }) => {
   return (
-    <div style={{ height: '82vh', overflowY: 'auto', overflowX: 'hidden', scrollbarWidth: 'none' }}>
+    <div style={{height: 'calc(100vh - 250px)', overflowY: 'auto', overflowX: 'hidden', scrollbarWidth: 'none' }}>
       {loading ? (
         <Box sx={{ padding: '20px' }}>
           <Skeleton variant="rectangular" width="100%" height={40} animation="wave" />

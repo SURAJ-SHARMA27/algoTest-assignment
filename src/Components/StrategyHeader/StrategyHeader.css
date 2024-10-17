@@ -1,0 +1,39 @@
+.strategy-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 762px;
+    height: 36px;
+    background-color: #FAFAFA;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    position: relative; /* Needed for absolute positioning of the center text */
+}
+
+.strategy-left {
+    display: flex;
+    align-items: center; /* Align image and text vertically */
+    padding: 8px; /* Add padding as required */
+}
+
+.strategy-text {
+    margin-left: 7px; /* Space between the image and the text */
+    font-size: 12px;
+    color: #0B619B;
+    font-weight: bold;
+}
+
+.strategy-mid {
+    position: absolute; /* Position it in the middle */
+    left: 50%; /* Center it horizontally */
+    transform: translateX(-50%); /* Adjust to center */
+    font-size: 14px;
+    color: #2A2A2A;
+}
+
+.strategy-right {
+    font-size: 10px;
+    color: #2A2A2A;
+    cursor: pointer;
+    padding: 8px; /* Add padding for better spacing */
+}

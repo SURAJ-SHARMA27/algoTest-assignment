@@ -1,0 +1,16 @@
+.expiry-status {
+    display: flex;
+    justify-content: flex-end; /* Align items to the extreme right */
+    align-items: center; /* Center vertically */
+    height: 32px; /* Set height */
+    font-family: 'Inter', sans-serif; /* Font family */
+    font-size: 12px; /* Font size */
+    color: #555555; /* Default text color */
+    margin-right: 10px;
+}
+
+.market-status {
+    color: #df5151; /* Color for MARKET CLOSED text */
+    margin-left: 5px; /* Optional space between texts */
+    font-weight: bold;
+}
