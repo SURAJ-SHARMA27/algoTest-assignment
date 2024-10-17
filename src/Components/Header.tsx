@@ -3,7 +3,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import Dropdown from './Dropdowns/Dropdown/Dropdown'; 
 import DropdownSecond from './Dropdowns/DropdownSecond/DropdownSecond';  
-import DropdownThird from './Dropdowns/DropdownThree';  
+import DropdownThird from './Dropdowns/DropdownThird/DropdownThree';  
 
  interface HeaderProps {
   firstDropdown: { name: string; value: string }[];

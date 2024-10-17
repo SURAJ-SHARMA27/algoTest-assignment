@@ -8,17 +8,14 @@ describe('DropdownSecond Component', () => {
   it('should open and close the dropdown when the header is clicked', () => {
     const { getByText } = render(<DropdownSecond />);
 
-    const dropdownHeader = getByText('FUT (30 Oct)'); // Initial selected option
+    const dropdownHeader = getByText('FUT (30 Oct)');  
 
-    // Dropdown should be closed initially
-    expect(() => getByText('Expiry')).toThrow(); // Check if options are not rendered
+     expect(() => getByText('Expiry')).toThrow();  
 
-    // Open the dropdown
-    fireEvent.click(dropdownHeader);
-    expect(getByText('Expiry')).toBeInTheDocument(); // Now options should be visible
+     fireEvent.click(dropdownHeader);
+    expect(getByText('Expiry')).toBeInTheDocument();  
 
-    // Close the dropdown
-    fireEvent.click(dropdownHeader);
-    expect(() => getByText('Expiry')).toThrow(); // Check if options are not rendered
+     fireEvent.click(dropdownHeader);
+    expect(() => getByText('Expiry')).toThrow();  
   });
 });

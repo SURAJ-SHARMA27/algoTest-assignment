@@ -1,0 +1,99 @@
+/* table.css */
+
+/* Styles for the buy and sell boxes */
+.box {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #0B619B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    margin-right: 4px; /* only applies to the buy box */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    cursor:pointer;
+}
+
+.box:last-child {
+    margin-right: 0; /* remove margin for the last box (sell box) */
+}
+
+.box span {
+    font-size: 11px;
+}
+
+/* Hover effects for the buy box */
+.box:first-child {
+    color: #0B619B;; /* Text color on hover */
+}
+
+/* Hover effects for the sell box */
+.box:last-child {
+    color: #0B619B;; /* Text color on hover */
+}
+
+.box:first-child:hover {
+    background-color: #e1f5e9; /* Background color on hover */
+    color: #29cd6e; /* Text color on hover */
+}
+
+/* Hover effects for the sell box */
+.box:last-child:hover {
+    background-color: #f9eaea; /* Background color on hover */
+    color: #ee7878; /* Text color on hover */
+}
+
+.lots-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+   }
+  
+  .lots-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: #4B4B4B;
+    margin-right: 4px;
+  }
+  
+  .lots-dropdown {
+    width: 42px;
+    height: 24px;
+    border: 1px solid #E5E7EB;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: #4B4B4B;
+    text-align: center;
+    overflow-y: auto;
+    
+  }
+  
+  .scrollable-dropdown {
+    max-height: 20px; /* Adjust the height to make the dropdown scrollable */
+    overflow-y: scroll;
+  }
+  
+  /* Custom scrollbar styling */
+  .scrollable-dropdown::-webkit-scrollbar {
+    width: 4px; /* Thin scrollbar */
+  }
+  
+  .scrollable-dropdown::-webkit-scrollbar-thumb {
+    background-color: #c0c0c0; /* Scrollbar thumb color */
+    border-radius: 10px; /* Rounded corners */
+  }
+  
+  .scrollable-dropdown::-webkit-scrollbar-thumb:hover {
+    background-color: #a0a0a0; /* Darker color on hover */
+  }
+  
+  .scrollable-dropdown::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* Scrollbar track color */
+  }
+  
+  #lots{
+   background: white;
+  }
+
+  
