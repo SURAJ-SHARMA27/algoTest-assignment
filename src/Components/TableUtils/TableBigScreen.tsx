@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CustomIcon from '../CustomIcon';
 import "./table.css"
+import { Tooltip } from '@mui/material';
 // Define the type for a single row (Option)
 interface Option {
   delta: number;
@@ -54,6 +55,7 @@ const TableBigScreen: React.FC<TableBigScreenProps> = ({ rows }) => {
       setClickedColorsPut((prev) => ({ ...prev, [index]: type === 'Buy' ? 'green' : 'red' }));
     }
   };
+
   return (
     <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
       <thead style={{ backgroundColor: '#FAFAFA', position: 'sticky', top: '0', zIndex: 1 }}>
@@ -94,7 +96,15 @@ const TableBigScreen: React.FC<TableBigScreenProps> = ({ rows }) => {
                 <span style={{ marginRight: "2px", fontSize: "10px", fontWeight: "bold" }}>
                   {typeof row.call_close === "number" ? row.call_close.toFixed(2) : row.call_close}
                 </span>
+                <Tooltip
+                  title="IIIiquid Option"
+                  arrow
+                  placement="top"
+                 >
+                  <span>
                 <CustomIcon />
+                </span>
+                </Tooltip>
               </div>
             </td>
 
@@ -124,8 +134,16 @@ const TableBigScreen: React.FC<TableBigScreenProps> = ({ rows }) => {
       )}
 
       {hoveredRowIndex === index && row.put_close === '' && row.call_close === '' && (
-        <img src={'./referesh.svg'} style={{ width: '15px', height: '15px' }} />
-      )}
+        <Tooltip
+  title="Fetch Instrument's LTP"
+  arrow
+  placement="top"
+ >
+  <span>
+    <img src={'./referesh.svg'} style={{ width: '15px', height: '15px' }} alt="Refresh" />
+  </span>
+</Tooltip>
+    )}
     </div>
   )}
 
@@ -159,7 +177,7 @@ const TableBigScreen: React.FC<TableBigScreenProps> = ({ rows }) => {
       </div>
 
       {/* Lots Dropdown */}
-      <div className="lots-container">
+      <div className="lots-container-big">
   <label htmlFor="lots" className="lots-label">Lots:</label>
   <select
     id="lots"
@@ -215,7 +233,15 @@ const TableBigScreen: React.FC<TableBigScreenProps> = ({ rows }) => {
       )}
 
       {hoveredRowIndex === index && row.put_close === '' && row.call_close === '' && (
+           <Tooltip
+           title="Fetch Instrument's LTP"
+           arrow
+           placement="top"
+          >
+           <span>
         <img src={'./referesh.svg'} style={{ width: '15px', height: '15px' }} />
+        </span>
+        </Tooltip>
       )}
     </div>
   )}
@@ -250,7 +276,7 @@ const TableBigScreen: React.FC<TableBigScreenProps> = ({ rows }) => {
       </div>
 
       {/* Lots Dropdown */}
-      <div className="lots-container">
+      <div className="lots-container-big">
   <label htmlFor="lots" className="lots-label">Lots:</label>
   <select
     id="lots"
@@ -277,7 +303,15 @@ const TableBigScreen: React.FC<TableBigScreenProps> = ({ rows }) => {
                 {row.put_close !== "" ? (
                   <span style={{ marginRight: "2px", fontSize: "12px", fontWeight: "bold" }}>{row.put_close.toFixed(2)}</span>
                 ) : (
+                  <Tooltip
+                  title="IIIiquid Option"
+                  arrow
+                  placement="top"
+                 >
+                  <span>
                   <CustomIcon />
+                  </span>
+                  </Tooltip>
                 )}
               </div>
             </td>

@@ -43,7 +43,7 @@
     color: #ee7878; /* Text color on hover */
 }
 
-.lots-container {
+.lots-container-big {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -97,3 +97,29 @@
   }
 
   
+  .tooltip-container {
+  position: relative; /* Position relative to enable absolute positioning of the tooltip */
+  display: inline-block; /* Make it inline for better layout */
+}
+
+.tooltip {
+  visibility: hidden; /* Hide by default */
+  width: 120px; /* Width of the tooltip */
+  background-color: black; /* Background color */
+  color: white; /* Text color */
+  text-align: center; /* Center the text */
+  border-radius: 4px; /* Rounded corners */
+  padding: 5px; /* Padding around the text */
+  position: absolute; /* Position absolutely */
+  z-index: 1; /* Ensure it appears above other elements */
+  bottom: 100%; /* Position above the image */
+  left: 50%; /* Center horizontally */
+  margin-left: -60px; /* Adjust for centering */
+  opacity: 0; /* Invisible by default */
+  transition: opacity 0.3s; /* Fade effect */
+}
+
+.tooltip-container:hover .tooltip {
+  visibility: visible; /* Show the tooltip on hover */
+  opacity: 1; /* Fade in effect */
+}

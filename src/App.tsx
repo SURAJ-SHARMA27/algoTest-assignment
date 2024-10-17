@@ -28,8 +28,7 @@ const OptionChain: React.FC = () => {
   const [loading,setLoading]=useState<boolean>(false);
   const constantValue = "25142.5";
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600);
-
-  useEffect(() => {
+   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth < 600);
     };
@@ -66,7 +65,6 @@ const OptionChain: React.FC = () => {
         const sortedDateOptions = DateOptions.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
         setDates(sortedDateOptions)
         setCurrentDate(sortedDateOptions[0]);
-        
         const contractDetails:ContractDetail[]=currentOpts[sortedDateOptions[0]];
         //creating a map in which token will be key (all contracts api response)
         const contractMap = createContractMap(contractDetails);
@@ -266,7 +264,7 @@ console.log()
         scrollRight={scrollRight}
         handleDateChange={handleDateChange}
       />
-           <TableContainer loading={loading} isSmallScreen={isSmallScreen} rows={rows} />
+           <TableContainer loading={loading} isSmallScreen={isSmallScreen} rows={rows} currentDate={currentDate} />
 
 
 
