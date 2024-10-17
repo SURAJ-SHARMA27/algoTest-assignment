@@ -1,14 +1,14 @@
 // Header.tsx
 import React from 'react';
 import { Box } from '@mui/material';
-import Dropdown from './Dropdowns/dropdown'; 
-import DropdownSecond from './Dropdowns/DropdownSecond';  
+import Dropdown from './Dropdowns/Dropdown/Dropdown'; 
+import DropdownSecond from './Dropdowns/DropdownSecond/DropdownSecond';  
 import DropdownThird from './Dropdowns/DropdownThree';  
 
  interface HeaderProps {
-  firstDropdown: any;  
-  firstSelectedOption: string;  
-  setFirstSelectedOption: (option: string) => void; 
+  firstDropdown: { name: string; value: string }[];
+  firstSelectedOption:{ name: string; value: string };
+  setFirstSelectedOption:  (option: { name: string; value: string }) => void
   isSmallScreen: boolean;  
 }
 

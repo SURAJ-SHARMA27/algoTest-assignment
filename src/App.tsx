@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IconButton, Box, Skeleton } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import Dropdown from './Components/Dropdowns/dropdown';
-import DropdownSecond from './Components/Dropdowns/DropdownSecond';
-import DropdownThird from './Components/Dropdowns/DropdownThree';
 import "./App.css";
-import CustomIcon from './Components/CustomIcon';
-import TableBigScreen from './Components/TableUtils/TableBigScreen';
-import TableSmallScreen from './Components/TableUtils/TableSmallScreen';
 import Header from './Components/Header';
 import Navigation from './Components/Navigation';
 import TableContainer from './Components/TableUtils/TableContainer';
