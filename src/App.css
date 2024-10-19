@@ -71,9 +71,12 @@ input:checked + .slider:before {
 .responsive-container {
   width: 40%;
   float: left;
-  overflow-y: hidden;
-}
 
+}
+.right-container-full{
+  width: 60%;
+  float: right;
+}
 @media (max-width: 600px) {
   .responsive-container {
       width: 100%;

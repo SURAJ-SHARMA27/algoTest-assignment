@@ -1,4 +1,3 @@
-// Navigation.tsx
 import React from 'react';
 import { IconButton } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -22,12 +21,27 @@ const Navigation: React.FC<NavigationProps> = ({
   scrollRight,
   handleDateChange,
 }) => {
+  // Helper function to format date as "DD MMM"
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+    return `${day} ${month}`;
+  };
+
+  // Helper function to calculate the difference in days from today
+  const getDaysDifference = (dateString: string): number => {
+    const targetDate = new Date(dateString);
+    const currentDate = new Date();
+    const differenceInTime = targetDate.getTime() - currentDate.getTime();
+    return Math.ceil(differenceInTime / (1000 * 3600 * 24)); // Convert milliseconds to days
+  };
+
   return (
     <div style={{ display: 'flex', alignItems: 'center', height: '50px', background: '#FAFAFA', border: '1px solid #E5E7EB', overflow: 'hidden' }}>
       <IconButton onClick={scrollLeft} disabled={currentIndex === 0}>
         <ArrowBackIosIcon style={{ fontSize: '15px' }} />
       </IconButton>
-
       <div style={{ display: 'flex', overflow: 'hidden', width: '600px', position: 'relative' }}>
         <div style={{ display: 'flex', transform: `translateX(-${currentIndex * 100}px)`, transition: 'transform 0.3s ease' }}>
           {dates.map((date, index) => (
@@ -35,7 +49,7 @@ const Navigation: React.FC<NavigationProps> = ({
               key={index}
               onClick={() => handleDateChange(index)}
               style={{
-                width: '100px',
+                width: '110px',
                 height: '28px',
                 borderRadius: '4px',
                 backgroundColor: currentDate === date ? '#E7EEF3' : 'transparent',
@@ -46,7 +60,8 @@ const Navigation: React.FC<NavigationProps> = ({
                 color: currentDate === date ? '#0B619B' : '#2A2A2A',
               }}
             >
-              {date}
+              {/* Format date and calculate day difference */}
+              {`${formatDate(date)} (${getDaysDifference(date)}d)`}
             </button>
           ))}
         </div>

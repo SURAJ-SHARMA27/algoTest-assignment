@@ -123,3 +123,51 @@
   visibility: visible; /* Show the tooltip on hover */
   opacity: 1; /* Fade in effect */
 }
+
+.table1 {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.table1-head {
+  background-color: #FAFAFA;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.table-header-big {
+  padding: 8px;
+  font-size: 12px;
+  font-weight: normal;
+  color: #555555;
+  text-align: center;
+}
+
+.table-header-right-border-big {
+  border-right: 1px solid #ddd;
+}
+
+.table-cell-big {
+    padding: 8px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+.table-cell-big-last {
+  padding: 8px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  text-align: center;
+}
+
+.table-cell-hover {
+    background: #FAFAFA; /* Background when hovered */
+}
+
+.table-div-big{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

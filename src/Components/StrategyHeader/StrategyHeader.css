@@ -2,9 +2,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 762px;
     height: 36px;
     background-color: #FAFAFA;
+  border-right: 1px solid #E5E7EB;
     font-size: 14px;
     font-family: 'Inter', sans-serif;
     position: relative; /* Needed for absolute positioning of the center text */

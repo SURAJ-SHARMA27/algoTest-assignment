@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import "./App.css";
 import Header from './Components/Header';
 import Navigation from './Components/Navigation';
 import TableContainer from './Components/TableUtils/TableContainer';
-import { createContractMap, getUniqueStrikes, populateRowData, populateStrikeMap } from './Components/Utils/utils';
+import { createTokenMap, getUniqueStrikes, populateRowData, populateStrikeMap } from './Components/Utils/utils';
 import { ContractDetail, Option, OptionChainData } from './Components/Utils/interfaces';
 import Navbar from './Components/Navbar/Navbar';
 import StrategyHeader from './Components/StrategyHeader/StrategyHeader';
@@ -15,25 +15,24 @@ import CenteredText from './Components/CenteredText/CenteredText';
 
 
 const OptionChain: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState<string>('');
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [dates, setDates] = useState<string[]>([]);
   const [rows, setRows] = useState<{ [strike: number]: Option }>({});
-  const [options, setOptions] = useState<OptionChainData>({});
   const [allContracts,setAllContracts]=useState<any>({});
   const [firstDropdown,setFirstDropdown]=useState<any[]>([]);
   const [firstSelectedOption,setFirstSelectedOption]=useState<any>({});
   const [opts,setOpts]=useState<any>([]);
   const [optionResponse,setOptionResponse]=useState<any>([]);
-  const [rootDate,setRootDate]=useState<any>([]);
   const [currentDate,setCurrentDate]=useState<any>('');
   const [selectedContractDetails,setSelectedContractDetails]=useState<any[]>([])
-  const [contractMapState, setContractMapState] = useState<{ [token: string]: ContractDetail }>({});
+  const [tokenMapState, setTokenMapState] = useState<{ [token: string]: ContractDetail }>({});
   const [rowData, setRowData] = useState<{ [strike: number]: Option }>({});  
   const [ltpData,setLtpData]=useState<any[]>([]);
   const [loading,setLoading]=useState<boolean>(false);
   const constantValue = "25142.5";
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600);
+  const [isRefresh,setIsRefresh]=useState(false);
+  const wsRef = useRef<WebSocket | null>(null);
    useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth < 600);
@@ -73,8 +72,8 @@ const OptionChain: React.FC = () => {
         setCurrentDate(sortedDateOptions[0]);
         const contractDetails:ContractDetail[]=currentOpts[sortedDateOptions[0]];
         //creating a map in which token will be key (all contracts api response)
-        const contractMap = createContractMap(contractDetails);
-        setContractMapState(contractMap);
+        const tokenMap = createTokenMap(contractDetails);
+        setTokenMapState(tokenMap);
         //extracting all unique strikes from all contract api response
         const uniqueStrikes: number[] = getUniqueStrikes(contractDetails);
         setSelectedContractDetails(currentOpts[sortedDateOptions[0]])
@@ -108,15 +107,15 @@ const OptionChain: React.FC = () => {
   const handleDateChange = (index: number) => {
     setLoading(true);
     const selectedDate = dates[index];
-    setSelectedDate(selectedDate);
     setCurrentDate(selectedDate);
+    setIsRefresh(!isRefresh);
     const contractDetails:ContractDetail[]=opts[selectedDate]
     const uniqueStrikes: number[] = getUniqueStrikes(contractDetails);
     setSelectedContractDetails(opts[selectedDate])
     const currentOptionData=optionResponse.options;
     const currentDateDataWithLTP=currentOptionData[selectedDate]
-      const contractMap = createContractMap(contractDetails);
-    setContractMapState(contractMap);
+      const tokenMap = createTokenMap(contractDetails);
+    setTokenMapState(tokenMap);
     const strikeMap = populateStrikeMap(currentDateDataWithLTP);
     const rowData = populateRowData(uniqueStrikes, strikeMap);
 setRowData(rowData)
@@ -140,8 +139,8 @@ setLoading(false);
             setCurrentDate(sortedDateOptions[0]);
             const contractDetails: ContractDetail[] = currentOpts[sortedDateOptions[0]];
             const uniqueStrikes: number[] = getUniqueStrikes(contractDetails);
-            const contractMap = createContractMap(contractDetails);
-            setContractMapState(contractMap);
+            const tokenMap = createTokenMap(contractDetails);
+            setTokenMapState(tokenMap);
             setSelectedContractDetails(currentOpts[sortedDateOptions[0]]);
 
             const optionResponse = await fetch(`/api/option-chain-with-ltp?underlying=${firstSelectedOption.name}`);
@@ -168,51 +167,49 @@ setRows(rowData);
 }, [firstSelectedOption]); 
 
 useEffect(() => {
-  let ws: WebSocket;
 
-  try {
-    ws = new WebSocket('wss://prices.algotest.xyz/mock/updates');
-    const initiationMessage = {
-      msg: {
-        datatypes: ["ltp"],
-        underlyings: [
-          {
-            underlying: `${firstSelectedOption.name}`,
-            cash: true,
-            options: [`${currentDate}`]
-          }
-        ]
-      }
-    };
+  if (!wsRef.current) {
+    try {
+      wsRef.current = new WebSocket('wss://prices.algotest.xyz/mock/updates');
+      const initiationMessage = {
+        msg: {
+          datatypes: ['ltp'],
+          underlyings: [
+            {
+              underlying: `${firstSelectedOption.name}`,
+              cash: true,
+              options: [`${currentDate}`]
+            }
+          ]
+        }
+      };
 
-    ws.onopen = () => {
-      console.log('WebSocket connection established');
-      ws.send(JSON.stringify(initiationMessage));
-    };
-    ws.onmessage = (event) => {
-      const jsonData = JSON.parse(event.data);
-         const ltpInfo = jsonData.ltp;
-     if (ltpInfo && Array.isArray(ltpInfo)) {
-    setLtpData(ltpInfo);
+      wsRef.current.onopen = () => {
+        console.log('WebSocket connection established');
+        wsRef.current?.send(JSON.stringify(initiationMessage));
+      };
+
+      wsRef.current.onmessage = (event) => {
+        const jsonData = JSON.parse(event.data);
+        const ltpInfo = jsonData.ltp;
+        if (ltpInfo && Array.isArray(ltpInfo)) {
+          setLtpData(ltpInfo);
+        }
+      };
+    } catch (error) {
+      console.error('Error while creating WebSocket connection:', error);
     }
-
-  };
-  
-
-  
-
-  } catch (error) {
-    console.error('Error while creating WebSocket connection:', error);
   }
 
-  // Close the WebSocket when the component unmounts
+  // Clean up when the component unmounts
   return () => {
-    if (ws) {
-      ws.close();
+    if (wsRef.current) {
+      wsRef.current.close();
       console.log('WebSocket connection closed');
+      wsRef.current = null;
     }
   };
-}, [currentDate,firstSelectedOption]); 
+}, [currentDate, firstSelectedOption]);
 
 
 useEffect(()=>{
@@ -220,9 +217,9 @@ console.log()
   ltpData.forEach((data) => {
     const { token, ltp } = data;  
     
-    // Checking if the token exists in the contractMap 
-    if (contractMapState[token]) {
-        const { strike, option_type } = contractMapState[token]; 
+    // Checking if the token exists in the tokenMap 
+    if (tokenMapState[token]) {
+        const { strike, option_type } = tokenMapState[token]; 
         // this line fetches the particular row in which we have to update call_ltp or put_ltp
         if (rowData[strike]) {
             if (option_type === "CE") {
@@ -258,22 +255,22 @@ console.log()
   <StrategyHeader/>
   <TwoColumnLayout/>
      
-<Header 
+      <Header 
       firstDropdown={firstDropdown} 
       firstSelectedOption={firstSelectedOption} 
       setFirstSelectedOption={setFirstSelectedOption} 
       isSmallScreen={isSmallScreen} 
-    />
+      />
 
-<Navigation
+       <Navigation
         dates={dates}
         currentDate={currentDate}
         currentIndex={currentIndex}
         scrollLeft={scrollLeft}
         scrollRight={scrollRight}
         handleDateChange={handleDateChange}
-      />
-           <TableContainer loading={loading} isSmallScreen={isSmallScreen} rows={rows} currentDate={currentDate} />
+       />
+           <TableContainer loading={loading} isSmallScreen={isSmallScreen} rows={rows} currentDate={currentDate} isRefresh={isRefresh}/>
 
 
 
@@ -281,7 +278,7 @@ console.log()
 
     </div>
 
- {!isSmallScreen && (   <div>
+ {!isSmallScreen && (   <div className='right-container-full'>
       <ExpiryStatus/>
       <OptionsAndHelp/>
       <CenteredText/>

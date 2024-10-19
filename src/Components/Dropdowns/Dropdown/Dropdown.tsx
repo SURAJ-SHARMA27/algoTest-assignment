@@ -8,9 +8,7 @@ interface DropdownProps {
 }
 const Dropdown: React.FC<DropdownProps> = ({ firstDropdown,firstSelectedOption,setFirstSelectedOption }) => {
   const [isOpen, setIsOpen] = useState(false);
- console.log(firstDropdown,firstSelectedOption,setFirstSelectedOption)
-  const options =  firstDropdown;
-
+   const options =  firstDropdown;
   const dropdownRef = useRef<HTMLDivElement | null>(null); 
 
   useEffect(() => { 
