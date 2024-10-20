@@ -33,15 +33,20 @@ const OptionChain: React.FC = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600);
   const [isRefresh,setIsRefresh]=useState(false);
   const wsRef = useRef<WebSocket | null>(null);
-   useEffect(() => {
+  useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 600);
+      const smallScreen = window.innerWidth < 999;
+      setIsSmallScreen(smallScreen);
     };
+  
+    handleResize(); 
+  
     window.addEventListener('resize', handleResize);
-    return () => {
+      return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+  
   
   useEffect(() => {
     const fetchData = async () => {
