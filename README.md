@@ -6,7 +6,7 @@ For better understanding I also attached the flow diagram how the approach is wo
 ## Flowchart
 ![Flowchart](flowdiagram.png)
 
-
+   
 ## Table of Contents
 - [Overview](#overview)
 - [Data Flow Steps](#data-flow-steps)
@@ -14,6 +14,67 @@ For better understanding I also attached the flow diagram how the approach is wo
 ## Overview
 
 The application fetches data related to financial options for various indices (e.g., Nifty, BankNifty, Sensex) and updates it dynamically. It does this through two primary APIs and handles real-time updates via WebSocket.
+
+
+## Folder Structure
+
+```bash
+src
+├── Components
+│   ├── BottomNav
+│   │   ├── BottomNav.tsx
+|   |   ├── BottomNav.css
+│   ├── CenteredText
+│   │   ├── Center.css
+│   │   ├── CenteredText.tsx
+│   ├── Dropdowns
+│   │   ├── Dropdown
+│   │   │   ├── Dropdown.css
+│   │   │   ├── Dropdown.tsx
+│   │   ├── DropdownSecond
+│   │   │   ├── DropdownSecond.css
+│   │   │   ├── DropdownSecond.tsx
+│   │   ├── DropdownThird
+│   │   │   ├── dropdownthree.css
+│   │   │   ├── DropdownThree.tsx
+│   ├── SettingsDropdown
+│   │   ├── settings.css
+│   │   ├── Settings.tsx
+├── ExpiryStatus
+│   ├── ExpiryStatus.css
+│   ├── ExpiryStatus.tsx
+├── Navbar
+│   ├── Navbar.css
+│   ├── Navbar.tsx
+├── OptionHelp
+│   ├── Options.css
+│   ├── OptionsHelp.tsx
+├── StrategyHeader
+│   ├── StrategyHeader.css
+│   ├── StrategyHeader.tsx
+├── TableUtils
+│   ├── Modal.css
+│   ├── Modal.tsx
+│   ├── Table.css
+│   ├── TableBigScreen.tsx
+│   ├── TableContainer.tsx
+│   ├── TableSmallScreen.tsx
+├── TwoCols
+│   ├── TwoColumnLayout.css
+│   ├── TwoColumns.tsx
+├── Utils
+│   ├── interfaces.ts
+│   ├── utils.ts
+├── CustomIcon.tsx
+├── Header.tsx
+├── Navigation.tsx
+├── Store
+├── App.css
+├── App.tsx
+├── index.css
+├── main.tsx
+```
+
 
 ## Data Flow Steps
 
