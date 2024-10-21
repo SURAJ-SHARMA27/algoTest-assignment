@@ -22,6 +22,7 @@ const Navigation: React.FC<NavigationProps> = ({
   handleDateChange,
 }) => {
   // Helper function to format date as "DD MMM"
+  console.log(dates,currentDate,currentIndex,scrollLeft,scrollRight,handleDateChange,"sd")
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
     const day = date.getDate();
@@ -39,7 +40,7 @@ const Navigation: React.FC<NavigationProps> = ({
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', height: '50px', background: '#FAFAFA', border: '1px solid #E5E7EB', overflow: 'hidden' }}>
-      <IconButton onClick={scrollLeft} disabled={currentIndex === 0}>
+      <IconButton onClick={scrollLeft} disabled={currentIndex === 0} data-testid="leftButton">
         <ArrowBackIosIcon style={{ fontSize: '15px' }} />
       </IconButton>
       <div style={{ display: 'flex', overflow: 'hidden', width: '600px', position: 'relative' }}>

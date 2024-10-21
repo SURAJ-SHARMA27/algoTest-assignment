@@ -1,0 +1,40 @@
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%; 
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; /* Space the items equally */
+    align-items: center; /* Center items vertically */
+    height: 57px; /* Slightly taller to accommodate image and text */
+    color: #808080;
+    z-index: 8; /* Ensure it's above other content */
+    border-top: 1px solid #e3e3e3;
+  }
+  
+  .nav-item-bottom {
+    display: flex;
+    flex-direction: column; /* Align image and text vertically */
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  .nav-bottom-img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .nav-label {
+    margin-top: 5px;
+    font-size: 12px; /* Adjust font size */
+    text-align: center;
+  }
+  
+  .nav-item-bottom:hover {
+    background-color: #f0f0f0; /* Lighter hover effect */
+    transition: background-color 0.3s;
+  }
+  

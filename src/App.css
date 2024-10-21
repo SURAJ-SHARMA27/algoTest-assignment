@@ -83,3 +83,9 @@ input:checked + .slider:before {
       float: none;  
   }
 }
+
+.green{
+  color:#42d27e;
+  font-weight: normal;
+  margin-left: 10px;
+}

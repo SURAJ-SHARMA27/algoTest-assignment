@@ -39,7 +39,7 @@ const Dropdown: React.FC<DropdownProps> = ({ firstDropdown,firstSelectedOption,s
       >
         <div style={{ flexDirection: 'column', display: 'flex', alignItems: 'flex-start' }}>
           <div className="dropdown-title">{firstSelectedOption.name}</div>
-          <div className="dropdown-value">{firstSelectedOption.value}</div>
+          <div className="dropdown-value">{firstSelectedOption.value} <span className='green'> 0.00 (0.00%) </span> </div>
         </div>
         <span className="dropdown-arrow">
           <ExpandMoreIcon />

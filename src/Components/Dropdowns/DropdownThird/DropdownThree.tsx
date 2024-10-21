@@ -12,7 +12,7 @@ const DropdownThird = () => {
       <div className="dropdown-header">
         <div style={{ flexDirection: 'column', display: 'flex', alignItems: 'flex-start' }}>
           <div className="dropdown-title">{selectedOption.name}</div>
-          <div className="dropdown-value">{selectedOption.value}</div>
+          <div className="dropdown-value">{selectedOption.value}<span className='green'> 0.00</span> </div>
         </div>
       </div>
     </div>

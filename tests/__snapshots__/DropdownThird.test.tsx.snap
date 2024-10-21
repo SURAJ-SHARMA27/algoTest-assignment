@@ -20,6 +20,12 @@ exports[`DropdownThird Component > matches the snapshot 1`] = `
           class="dropdown-value"
         >
           12.92
+          <span
+            class="green"
+          >
+             0.00
+          </span>
+           
         </div>
       </div>
     </div>

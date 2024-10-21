@@ -4,7 +4,7 @@ This document outlines the logic and flow of fetching option data and updating i
 For better understanding I also attached the flow diagram how the approach is working:
 
 ## Flowchart
-![Flowchart](image.jpeg)
+![Flowchart](flowdiagram.png)
 
 
 ## Table of Contents

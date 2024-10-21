@@ -11,6 +11,7 @@ import TwoColumnLayout from './Components/TwoCols/TwoColumns';
 import ExpiryStatus from './Components/ExpiryStatus/ExpiryStatus';
 import OptionsAndHelp from './Components/OptionHelp/OptionsHelp';
 import CenteredText from './Components/CenteredText/CenteredText';
+import BottomNav from './Components/BottomNav/BottomNav';
 
 
 
@@ -95,6 +96,7 @@ const OptionChain: React.FC = () => {
         const currentDateDataWithLTP=currentOptionData[sortedDateOptions[0]]
         //creating a map from the response of option-chain-ltp api in which strike will be key and call_close,put_close,call_delta and put_delta will be values
         const strikeMap = populateStrikeMap(currentDateDataWithLTP);
+        console.log(strikeMap,"strikemap")
         // it will now traverse through all the unique strikes fetched from all contract api and check whether strikeMap contains that strike (O(1)), if it contains
         // it puts the corresponding data in that row (i.e. call_close...)
         const rowData = populateRowData(uniqueStrikes, strikeMap);
@@ -128,6 +130,7 @@ setRows(rowData);
 setLoading(false);
 
   };
+  {console.log(firstDropdown,firstSelectedOption,setFirstSelectedOption,"fasfasf")}
 
   useEffect(() => {
     const fetchData = async () => {
@@ -280,8 +283,10 @@ console.log()
 
 
 
-
     </div>
+    {isSmallScreen &&(
+      <BottomNav/>
+    )}
 
  {!isSmallScreen && (   <div className='right-container-full'>
       <ExpiryStatus/>

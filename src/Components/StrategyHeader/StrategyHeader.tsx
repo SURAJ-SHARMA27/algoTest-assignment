@@ -10,7 +10,7 @@ const StrategyHeader = () => {
   <span className="strategy-text">Strategies</span>
 </div>
 
-      <div className="strategy-mid">New Strategy</div>
+      <div className="strategy-mid">New strategy</div>
       <div className="strategy-right">
         <MoreVertIcon style={{ color: "#2A2A2A" ,fontSize:"18px"}} />
       </div>
