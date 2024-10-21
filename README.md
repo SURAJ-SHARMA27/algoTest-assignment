@@ -78,7 +78,7 @@ src
 
 ## Data Flow Steps
 
-1. **Fetch Contract API (`/api/contracts`)**
+1. **Fetch all token API (`/api/contracts`)**
    - Fetches a list of available options and their details.
    - Sets the first available option (e.g., BankNifty) as the default selection.
 
@@ -88,8 +88,8 @@ src
 
 3. **Fetch Contract Details for the Selected Date**
    - Extracts contract details for the selected date.
-   - Creates a `contractMap` using the token as the key for quick access.
-   - Obtains unique strikes from the contract details for later use.
+   - Creates a `tokenMap` using the token as the key for quick access.
+   - Obtains unique strikes from the token details for later use.
 
 4. **Fetch Option Chain with LTP API (`/api/option-chain-with-ltp`)**
    - Fetches option chain data for the selected option (e.g., BankNifty) and date.
@@ -101,7 +101,7 @@ src
 
 6. **Update Data from WebSocket (`ltpData`)**
    - Listens for incoming WebSocket data updates.
-   - For each update, checks the `contractMap` using the token.
+   - For each update, checks the `tokenMap` using the token.
    - Updates the respective row's `call_close` or `put_close` based on the `option_type` (CE for call, PE for put).
 
 
