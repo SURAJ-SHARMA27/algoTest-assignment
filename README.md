@@ -23,7 +23,7 @@ src
 ├── Components
 │   ├── BottomNav
 │   │   ├── BottomNav.tsx
-|   |   ├── BottomNav.css
+│   │   ├── BottomNav.css
 │   ├── CenteredText
 │   │   ├── Center.css
 │   │   ├── CenteredText.tsx
