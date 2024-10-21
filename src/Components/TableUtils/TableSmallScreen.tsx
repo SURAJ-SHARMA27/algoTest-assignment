@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import CustomIcon from '../CustomIcon';
 import Modal from './Modal';
+import { RootState } from '../../Store/Store';
+import { shallowEqual, useSelector } from 'react-redux';
 
 // Define the type for a single row (Option)
 interface Option {
@@ -14,10 +16,10 @@ interface Option {
 
 // Define the props type for the table component
 interface TableBigScreenProps {
-  rows: { [strike: number]: Option }; // The rows object is keyed by strike prices
   currentDate:string;
 }
-const TableSmallScreen: React.FC<TableBigScreenProps> = ({ rows,currentDate }) => {
+const TableSmallScreen: React.FC<TableBigScreenProps> = ({ currentDate }) => {
+  const rowsRedux = useSelector((state: RootState) => state.rowReduxSlice.rows, shallowEqual);
   const [isModalOpen, setModalOpen] = useState(false); // State for modal visibility
   const [col,setCol]=useState("");
   const handleCellClick = (name:string) => {
@@ -55,7 +57,7 @@ const TableSmallScreen: React.FC<TableBigScreenProps> = ({ rows,currentDate }) =
           </tr>
         </thead>
         <tbody>
-          {Object.values(rows).map((row: Option, index: number) => (
+          {Object.values(rowsRedux).map((row: Option, index: number) => (
             <tr key={index} style={{ height: '30px' }}>
               <td onClick={()=>handleCellClick("Call")} style={{ padding: '8px', borderTop: '1px solid #ddd', borderBottom: '1px solid #ddd', textAlign: 'center', background: "#FFFBE5" }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

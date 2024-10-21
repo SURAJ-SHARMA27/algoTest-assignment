@@ -1,10 +1,17 @@
 // src/store/store.ts
 import { configureStore } from '@reduxjs/toolkit';
-import testReducer from './testSlice';
+import rowReduxSlice from './rowReduxSlice';
+import currentIndexReducer from './CurrentIndexSlice';
+import datesReducer from "./datesSlice";
+import DropdownReducer from './DropdownSlice';
 
 const store = configureStore({
   reducer: {
-    test: testReducer,
+    rowReduxSlice: rowReduxSlice,
+    currentIndex: currentIndexReducer,
+    dates: datesReducer,
+    dropdown:DropdownReducer
+
   },
 });
 

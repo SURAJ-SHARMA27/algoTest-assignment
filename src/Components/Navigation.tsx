@@ -3,9 +3,10 @@ import { IconButton } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { useSelector } from 'react-redux';
+import { RootState } from '../Store/Store';
 
 interface NavigationProps {
-  dates: string[];
   currentDate: string;
   currentIndex: number;
   scrollLeft: () => void;
@@ -14,7 +15,6 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({
-  dates,
   currentDate,
   currentIndex,
   scrollLeft,
@@ -22,7 +22,8 @@ const Navigation: React.FC<NavigationProps> = ({
   handleDateChange,
 }) => {
   // Helper function to format date as "DD MMM"
-  console.log(dates,currentDate,currentIndex,scrollLeft,scrollRight,handleDateChange,"sd")
+  const datesRedux = useSelector((state: RootState) => state.dates.dates);
+
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
     const day = date.getDate();
@@ -45,7 +46,7 @@ const Navigation: React.FC<NavigationProps> = ({
       </IconButton>
       <div style={{ display: 'flex', overflow: 'hidden', width: '600px', position: 'relative' }}>
         <div style={{ display: 'flex', transform: `translateX(-${currentIndex * 100}px)`, transition: 'transform 0.3s ease' }}>
-          {dates.map((date, index) => (
+          {datesRedux.map((date, index) => (
             <button
               key={index}
               onClick={() => handleDateChange(index)}
@@ -68,7 +69,7 @@ const Navigation: React.FC<NavigationProps> = ({
         </div>
       </div>
 
-      <IconButton onClick={scrollRight} disabled={currentIndex >= dates.length - 1}>
+      <IconButton onClick={scrollRight} disabled={currentIndex >= datesRedux.length - 1}>
         <ArrowForwardIosIcon style={{ fontSize: '15px' }} />
       </IconButton>
 

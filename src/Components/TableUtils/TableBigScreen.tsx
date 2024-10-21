@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import CustomIcon from '../CustomIcon';
 import "./table.css"
 import { Tooltip } from '@mui/material';
+import { shallowEqual, useSelector } from 'react-redux';
+import { RootState } from '../../Store/Store';
 // Define the type for a single row (Option)
 interface Option {
   delta: number;
@@ -14,11 +16,10 @@ interface Option {
 
 // Define the props type for the table component
 interface TableBigScreenProps {
-  rows: { [strike: number]: Option }; // The rows object is keyed by strike prices
   isRefresh:boolean;
 }
 
-const TableBigScreen: React.FC<TableBigScreenProps> = ({ rows,isRefresh }) => {
+const TableBigScreen: React.FC<TableBigScreenProps> = ({ isRefresh }) => {
   const [hoveredRowIndex, setHoveredRowIndex] = useState<number | null>(null); // State for tracking hovered row index
   const [selectedLot, setSelectedLot] = useState(1); // Default selected lot
   const [clickedIndices, setClickedIndices] = useState<number[]>([]); // State for storing clicked indices
@@ -26,6 +27,11 @@ const TableBigScreen: React.FC<TableBigScreenProps> = ({ rows,isRefresh }) => {
   const [selectedLotPut, setSelectedLotPut] = useState(1); // Default selected lot
   const [clickedIndicesPut, setClickedIndicesPut] = useState<number[]>([]); // State for storing clicked indices
   const [clickedColorsPut, setClickedColorsPut] = useState<{ [key: number]: string }>({}); // To track whether it's Buy (green) or Sell (red)
+  const [rowsTable, setRowsTable] = useState<{ [strike: number]: Option }>({});
+  
+
+  const rowsRedux = useSelector((state: RootState) => state.rowReduxSlice.rows, shallowEqual);
+
   
   const ind=18;
   const syntheticFutRef = useRef<HTMLTableRowElement>(null);
@@ -90,7 +96,7 @@ const TableBigScreen: React.FC<TableBigScreenProps> = ({ rows,isRefresh }) => {
 </tr>
       </thead>
       <tbody>
-      {Object.values(rows).map((row: Option, index: number) => {
+      {Object.values(rowsRedux).map((row: Option, index: number) => {
   const isHovered = hoveredRowIndex === index;  
   const midBlockBg=isHovered?'#FAFAFA':ind==index?'#e6f2fb':'';
   let backgroundColor = isHovered ? '#FAFAFA' : '#FFFBE5';  

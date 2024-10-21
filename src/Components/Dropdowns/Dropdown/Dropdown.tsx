@@ -1,14 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import './Dropdown.css'; 
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../../Store/Store';
+import { setFirstSelectedOption } from '../../../Store/DropdownSlice';
 interface DropdownProps {
-  firstDropdown:{ name: string; value: string }[];
-  firstSelectedOption:{ name: string; value: string };
-  setFirstSelectedOption: (option: { name: string; value: string }) => void; 
+ 
 }
-const Dropdown: React.FC<DropdownProps> = ({ firstDropdown,firstSelectedOption,setFirstSelectedOption }) => {
+const Dropdown: React.FC<DropdownProps> = () => {
   const [isOpen, setIsOpen] = useState(false);
-   const options =  firstDropdown;
+const firstDropdownRedux = useSelector((state: RootState) => state.dropdown.firstDropdown);
+const firstSelectedOptionRedux = useSelector((state: RootState) => state.dropdown.firstSelectedOption);
+const dispatch = useDispatch<AppDispatch>();
+
+   const options =  firstDropdownRedux;
   const dropdownRef = useRef<HTMLDivElement | null>(null); 
 
   useEffect(() => { 
@@ -25,7 +30,8 @@ const Dropdown: React.FC<DropdownProps> = ({ firstDropdown,firstSelectedOption,s
   }, []);
 
   const handleOptionClick = (option: { name: string; value: string }) => {
-    setFirstSelectedOption(option);
+    dispatch(setFirstSelectedOption(option))
+    
     setIsOpen(false); 
   };
 
@@ -38,8 +44,8 @@ const Dropdown: React.FC<DropdownProps> = ({ firstDropdown,firstSelectedOption,s
         data-testid="dropdown-header"
       >
         <div style={{ flexDirection: 'column', display: 'flex', alignItems: 'flex-start' }}>
-          <div className="dropdown-title">{firstSelectedOption.name}</div>
-          <div className="dropdown-value">{firstSelectedOption.value} <span className='green'> 0.00 (0.00%) </span> </div>
+          <div className="dropdown-title">{firstSelectedOptionRedux.name}</div>
+          <div className="dropdown-value">{firstSelectedOptionRedux.value} <span className='green'> 0.00 (0.00%) </span> </div>
         </div>
         <span className="dropdown-arrow">
           <ExpandMoreIcon />

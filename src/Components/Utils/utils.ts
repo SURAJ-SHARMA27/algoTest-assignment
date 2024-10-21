@@ -5,7 +5,7 @@ export const getUniqueStrikes = (contractDetails: { strike: number }[]): number[
   };
 
 
-export const createTokenMap = (contractDetails: ContractDetail[]): { [token: string]: ContractDetail } => {
+export const  createTokenMap = (contractDetails: ContractDetail[]): { [token: string]: ContractDetail } => {
     return contractDetails.reduce((map: { [token: string]: ContractDetail }, contract: ContractDetail) => {
       map[contract.token] = contract;  
       return map;

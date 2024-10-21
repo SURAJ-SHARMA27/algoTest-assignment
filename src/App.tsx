@@ -4,7 +4,7 @@ import Header from './Components/Header';
 import Navigation from './Components/Navigation';
 import TableContainer from './Components/TableUtils/TableContainer';
 import { createTokenMap, getUniqueStrikes, populateRowData, populateStrikeMap } from './Components/Utils/utils';
-import { ContractDetail, Option, OptionChainData } from './Components/Utils/interfaces';
+import { AllContracts, ContractDetail, DropdownOption, Option, OptionChainData, OptionResponse } from './Components/Utils/interfaces';
 import Navbar from './Components/Navbar/Navbar';
 import StrategyHeader from './Components/StrategyHeader/StrategyHeader';
 import TwoColumnLayout from './Components/TwoCols/TwoColumns';
@@ -12,18 +12,17 @@ import ExpiryStatus from './Components/ExpiryStatus/ExpiryStatus';
 import OptionsAndHelp from './Components/OptionHelp/OptionsHelp';
 import CenteredText from './Components/CenteredText/CenteredText';
 import BottomNav from './Components/BottomNav/BottomNav';
-
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, AppDispatch } from './Store/Store';
+import { setRowsRedux } from './Store/rowReduxSlice';
+import { setDates } from './Store/datesSlice';
+import { setFirstDropdown } from './Store/DropdownSlice';
+import { setFirstSelectedOption } from './Store/DropdownSlice';
 const OptionChain: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [dates, setDates] = useState<string[]>([]);
-  const [rows, setRows] = useState<{ [strike: number]: Option }>({});
-  const [allContracts,setAllContracts]=useState<any>({});
-  const [firstDropdown,setFirstDropdown]=useState<any[]>([]);
-  const [firstSelectedOption,setFirstSelectedOption]=useState<any>({});
+  const [currentIndex, setCurrentIndex] = useState<number>(0);  
+  const [allContracts, setAllContracts] = useState<AllContracts>({});
   const [opts,setOpts]=useState<any>([]);
-  const [optionResponse,setOptionResponse]=useState<any>([]);
+const [optionResponse, setOptionResponse] = useState<OptionResponse | any>([]);
   const [currentDate,setCurrentDate]=useState<any>('');
   const [selectedContractDetails,setSelectedContractDetails]=useState<any[]>([])
   const [tokenMapState, setTokenMapState] = useState<{ [token: string]: ContractDetail }>({});
@@ -33,6 +32,13 @@ const OptionChain: React.FC = () => {
   const constantValue = "25142.5";
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600);
   const [isRefresh,setIsRefresh]=useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const datesRedux = useSelector((state: RootState) => state.dates.dates);
+  const firstSelectedOptionRedux = useSelector((state: RootState) => state.dropdown.firstSelectedOption);
+
+console.log(optionResponse,"firs")
+  
+
   const wsRef = useRef<WebSocket | null>(null);
   useEffect(() => {
     const handleResize = () => {
@@ -40,7 +46,7 @@ const OptionChain: React.FC = () => {
       setIsSmallScreen(smallScreen);
     };
   
-    handleResize(); 
+    handleResize();   
   
     window.addEventListener('resize', handleResize);
       return () => {
@@ -65,16 +71,17 @@ const OptionChain: React.FC = () => {
           value: constantValue,
         }));
         //Setting the first option as first Index fetched(BankNifty)
-        setFirstSelectedOption(NameOptions[0]);
+        dispatch(setFirstSelectedOption(NameOptions[0]));
         //Setting Values for first dropdown
-        setFirstDropdown(NameOptions);
+        dispatch(setFirstDropdown(NameOptions));
         //fetching Option array for selected value(BankNifty) to get all the dates and Strikes
         const currentOpts=data[NameOptions[0].name].OPT;
         setOpts(currentOpts)
         //Date array is populated here
         const DateOptions=Object.keys(currentOpts)
         const sortedDateOptions = DateOptions.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
-        setDates(sortedDateOptions)
+        // setDates(sortedDateOptions)
+        dispatch(setDates(sortedDateOptions));
         setCurrentDate(sortedDateOptions[0]);
         const contractDetails:ContractDetail[]=currentOpts[sortedDateOptions[0]];
         //creating a map in which token will be key (all contracts api response)
@@ -96,12 +103,11 @@ const OptionChain: React.FC = () => {
         const currentDateDataWithLTP=currentOptionData[sortedDateOptions[0]]
         //creating a map from the response of option-chain-ltp api in which strike will be key and call_close,put_close,call_delta and put_delta will be values
         const strikeMap = populateStrikeMap(currentDateDataWithLTP);
-        console.log(strikeMap,"strikemap")
         // it will now traverse through all the unique strikes fetched from all contract api and check whether strikeMap contains that strike (O(1)), if it contains
         // it puts the corresponding data in that row (i.e. call_close...)
         const rowData = populateRowData(uniqueStrikes, strikeMap);
         setRowData(rowData);
-        setRows(rowData);
+        dispatch(setRowsRedux(rowData));
         setLoading(false);
       } catch (error) {
         console.error('Error fetching option chain data:', error);
@@ -113,7 +119,7 @@ const OptionChain: React.FC = () => {
 
   const handleDateChange = (index: number) => {
     setLoading(true);
-    const selectedDate = dates[index];
+    const selectedDate = datesRedux[index];
     setCurrentDate(selectedDate);
     setIsRefresh(!isRefresh);
     const contractDetails:ContractDetail[]=opts[selectedDate]
@@ -126,24 +132,23 @@ const OptionChain: React.FC = () => {
     const strikeMap = populateStrikeMap(currentDateDataWithLTP);
     const rowData = populateRowData(uniqueStrikes, strikeMap);
 setRowData(rowData)
-setRows(rowData);
+dispatch(setRowsRedux(rowData));
 setLoading(false);
 
   };
-  {console.log(firstDropdown,firstSelectedOption,setFirstSelectedOption,"fasfasf")}
 
   useEffect(() => {
     const fetchData = async () => {
         try {
  
            // Fetching Option array for selected value(BankNifty) to get all the dates and Strikes
-            const currentOpts = allContracts[firstSelectedOption.name].OPT;
+            const currentOpts = allContracts[firstSelectedOptionRedux.name].OPT;
             setOpts(currentOpts);
 
             // Date array is populated here
             const DateOptions = Object.keys(currentOpts);
             const sortedDateOptions = DateOptions.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
-            setDates(sortedDateOptions);
+            dispatch(setDates(sortedDateOptions));
             setCurrentDate(sortedDateOptions[0]);
             const contractDetails: ContractDetail[] = currentOpts[sortedDateOptions[0]];
             const uniqueStrikes: number[] = getUniqueStrikes(contractDetails);
@@ -151,7 +156,7 @@ setLoading(false);
             setTokenMapState(tokenMap);
             setSelectedContractDetails(currentOpts[sortedDateOptions[0]]);
 
-            const optionResponse = await fetch(`/api/option-chain-with-ltp?underlying=${firstSelectedOption.name}`);
+            const optionResponse = await fetch(`/api/option-chain-with-ltp?underlying=${firstSelectedOptionRedux.name}`);
             if (!optionResponse.ok) {
                 throw new Error(`HTTP error! Status: ${optionResponse.status}`);
             }
@@ -162,7 +167,8 @@ setLoading(false);
             const strikeMap = populateStrikeMap(currentDateDataWithLTP);
             const rowData = populateRowData(uniqueStrikes, strikeMap);
 setRowData(rowData)
-setRows(rowData);
+dispatch(setRowsRedux(rowData));
+
 
         } catch (error) {
             console.error("Error fetching option chain data:", error);
@@ -172,7 +178,7 @@ setRows(rowData);
       fetchData();
   }
   
-}, [firstSelectedOption]); 
+}, [firstSelectedOptionRedux]); 
 
 useEffect(() => {
 
@@ -184,7 +190,7 @@ useEffect(() => {
           datatypes: ['ltp'],
           underlyings: [
             {
-              underlying: `${firstSelectedOption.name}`,
+              underlying: `${firstSelectedOptionRedux.name}`,
               cash: true,
               options: [`${currentDate}`]
             }
@@ -193,7 +199,6 @@ useEffect(() => {
       };
 
       wsRef.current.onopen = () => {
-        console.log('WebSocket connection established');
         wsRef.current?.send(JSON.stringify(initiationMessage));
       };
 
@@ -213,35 +218,48 @@ useEffect(() => {
   return () => {
     if (wsRef.current) {
       wsRef.current.close();
-      console.log('WebSocket connection closed');
       wsRef.current = null;
     }
   };
-}, [currentDate, firstSelectedOption]);
+}, [currentDate, firstSelectedOptionRedux]);
 
 
-useEffect(()=>{
-console.log()
-  ltpData.forEach((data) => {
-    const { token, ltp } = data;  
+useEffect(() => {
+  if (Array.isArray(ltpData) && ltpData.length > 0) {
     
-    // Checking if the token exists in the tokenMap 
-    if (tokenMapState[token]) {
+    // Create a shallow copy of rowData to avoid mutating the original object
+    const updatedRowData = { ...rowData };
+
+    ltpData.forEach((data) => {
+      const { token, ltp } = data;  
+      
+      // Checking if the token exists in the tokenMap 
+      if (tokenMapState[token]) {
         const { strike, option_type } = tokenMapState[token]; 
-        // this line fetches the particular row in which we have to update call_ltp or put_ltp
-        if (rowData[strike]) {
-            if (option_type === "CE") {
-               rowData[strike].call_close=ltp;
-           
-            } else if (option_type === "PE") {
-              rowData[strike].put_close=ltp;
-               
-            }
+        
+        // Check if the row for the given strike exists
+        if (updatedRowData[strike]) {
+          // Update the copy instead of the original state
+          if (option_type === "CE") {
+            updatedRowData[strike] = {
+              ...updatedRowData[strike],
+              call_close: ltp,
+            };
+          } else if (option_type === "PE") {
+            updatedRowData[strike] = {
+              ...updatedRowData[strike],
+              put_close: ltp,
+            };
+          }
         }
-    }
-});
- setRows(rowData);
-},[ltpData])
+      }
+    });
+
+    // Update the state with the modified copy
+    dispatch(setRowsRedux(updatedRowData));
+  }
+}, [ltpData]);
+
 
 
   const scrollLeft = () => {
@@ -250,7 +268,7 @@ console.log()
 
   const scrollRight = () => {
     setCurrentIndex((prevIndex) => {
-        const newIndex = Math.min(prevIndex + 1, dates.length - 1);
+        const newIndex = Math.min(prevIndex + 1, datesRedux.length - 1);
          return newIndex;
     });
 };
@@ -264,21 +282,17 @@ console.log()
   <TwoColumnLayout/>
      
       <Header 
-      firstDropdown={firstDropdown} 
-      firstSelectedOption={firstSelectedOption} 
-      setFirstSelectedOption={setFirstSelectedOption} 
       isSmallScreen={isSmallScreen} 
       />
 
        <Navigation
-        dates={dates}
         currentDate={currentDate}
         currentIndex={currentIndex}
         scrollLeft={scrollLeft}
         scrollRight={scrollRight}
         handleDateChange={handleDateChange}
        />
-           <TableContainer loading={loading} isSmallScreen={isSmallScreen} rows={rows} currentDate={currentDate} isRefresh={isRefresh}/>
+           <TableContainer loading={loading} isSmallScreen={isSmallScreen}  currentDate={currentDate} isRefresh={isRefresh}/>
 
 
 

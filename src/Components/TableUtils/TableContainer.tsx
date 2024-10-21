@@ -14,12 +14,11 @@ interface Option {
 interface TableContainerProps {
   loading: boolean;
   isSmallScreen: boolean;
-  rows: { [strike: number]: Option }; // The rows object is keyed by strike prices
   currentDate:string;
   isRefresh:boolean;
 }
 
-const TableContainer: React.FC<TableContainerProps> = ({ loading, isSmallScreen, rows,currentDate,isRefresh }) => {
+const TableContainer: React.FC<TableContainerProps> = ({ loading, isSmallScreen,currentDate,isRefresh }) => {
   return (
     <div style={{height: 'calc(100vh - 250px)', overflowY: 'auto', overflowX: 'hidden', scrollbarWidth: 'none' }}>
       {loading ? (
@@ -31,8 +30,8 @@ const TableContainer: React.FC<TableContainerProps> = ({ loading, isSmallScreen,
         </Box>
       ) : (
         <>
-          {!isSmallScreen && <TableBigScreen rows={rows} isRefresh={isRefresh}/>}
-          {isSmallScreen && <TableSmallScreen rows={rows} currentDate={currentDate} />}
+          {!isSmallScreen && <TableBigScreen  isRefresh={isRefresh}/>}
+          {isSmallScreen && <TableSmallScreen  currentDate={currentDate} />}
         </>
       )}
     </div>

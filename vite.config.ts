@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://prices.algotest.in',  // The target URL for the proxy
+        target: 'https://prices.algotest.xyz',  // The target URL for the proxy
         changeOrigin: true,   // Required to handle CORS
         rewrite: (path) => path.replace(/^\/api/, ''),  // Remove /api prefix when forwarding the request
       },

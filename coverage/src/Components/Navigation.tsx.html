@@ -271,7 +271,6 @@ const Navigation: React.FC&lt;NavigationProps&gt; = ({
   handleDateChange,
 }) =&gt; {
   // Helper function to format date as "DD MMM"
-  console.log(dates,currentDate,currentIndex,scrollLeft,scrollRight,handleDateChange,"sd")
   const formatDate = (dateString: string): string =&gt; {
     const date = new Date(dateString);
     const day = date.getDate();

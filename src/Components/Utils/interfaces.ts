@@ -63,3 +63,21 @@ export interface ContractDetail {
     call_delta: (number|"");
     put_delta: (number|"");
   }
+
+  interface ContractDetails {
+    [key: string]: any; 
+  }
+  
+  export interface AllContracts {
+    [contractName: string]: {
+      CASH: ContractDetails;
+      FUT: ContractDetails;
+      OPT: ContractDetails;
+    };
+  }
+
+  export interface DropdownOption {
+    name: string;
+    value: string;
+  }
+  
