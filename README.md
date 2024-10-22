@@ -69,6 +69,11 @@ src
 ├── Header.tsx
 ├── Navigation.tsx
 ├── Store
+│   ├── CurrentIndexSlice.ts
+│   ├── datesSlice.ts
+│   ├── DropdownSlice.ts
+│   ├── rowReduxSlice.ts
+│   ├── Store.ts
 ├── App.css
 ├── App.tsx
 ├── index.css
